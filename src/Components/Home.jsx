@@ -71,7 +71,7 @@ export default function Home() {
         <>
             <div className={`flex ${modalState.isVisible && 'fixed w-full'}`}>
                 <Sidebar />
-                <div className='border w-full flex justify-center' style={{ marginLeft: '18vw' }}>
+                <div className=' w-full flex justify-center' style={{ marginLeft: '18vw' }}>
 
                     <div className=' flex justify-between' style={{ width: '1000px' }}>
 

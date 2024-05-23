@@ -25,7 +25,7 @@ io.on("connection",(socket)=>{
 
     socket.emit("current-users",users);
     
-    socket.on("user-joined",userData=>{
+    socket.on("user-joined",userData=>{ 
     users.push({socketId:userData.socketId,userId:userData.userId})
         console.log(users)
         socket.broadcast.emit("new-user-joined", {socketId:userData.socketId,userId:userData.userId});

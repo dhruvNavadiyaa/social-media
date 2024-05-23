@@ -24,7 +24,7 @@ export default function CreatePost() {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className='border w-full h-screen flex justify-center items-center bg-black bg-opacity-20' style={{ marginLeft: '18vw' ,background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
+            <div className=' w-full h-screen flex justify-center items-center bg-black bg-opacity-20' style={{ marginLeft: '18vw' ,background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
                 <div className='p-5 border bg-white rounded-xl shadow-2xl' style={{ height: '800px', width: '900px',backgroundColor:'lavender' }}>
 
                     <div>

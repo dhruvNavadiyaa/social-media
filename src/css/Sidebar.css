@@ -1,3 +1,26 @@
 .sidebar{
  width: 18vw;   
 }
+
+.slide-left{
+    margin-left: -320px;
+    transition: all 1s ease;
+}
+.slide-right{
+    margin-left: 0px;
+    transition: all 0.7s ease;
+}
+.width-0{
+    width: 1px;
+    transition: all 0.7s ease;
+}
+.width-100{
+    width: 320px;
+    transition: all 0.7s ease;
+}
+
+@media only screen and (max-width: 1280px){
+    .sidebar{
+        width: 7vw;
+    }
+}
