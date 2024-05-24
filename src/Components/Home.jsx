@@ -41,20 +41,20 @@ export default function Home() {
         const q = likes?.includes(user.id)
         // console.log(q)
         if (q === false) {
-            const response = await axios.patch(`http://localhost:3000/posts/${id}`,{
-                likes:[
+            const response = await axios.patch(`http://localhost:3000/posts/${id}`, {
+                likes: [
                     ...likes,
                     user.id
                 ]
             })
         }
         else {
-            let lik = likes?.filter((item)=>{
-                return item !== user.id 
+            let lik = likes?.filter((item) => {
+                return item !== user.id
             });
             // console.log(lik)
-            const response = await axios.patch(`http://localhost:3000/posts/${id}`,{
-                likes:[
+            const response = await axios.patch(`http://localhost:3000/posts/${id}`, {
+                likes: [
                     ...lik
                 ]
             })
@@ -69,16 +69,18 @@ export default function Home() {
 
     return (
         <>
-            <div className={`flex ${modalState.isVisible && 'fixed w-full'}`}>
+            <div className={`h-screen mb-10 flex ${modalState.isVisible && 'fixed w-full '}`}>
                 <Sidebar />
-                <div className=' w-full flex justify-center' style={{ marginLeft: '18vw' }}>
+                <div className='xl:ms-96 md:ms-20 sm:px-20 px-5 w-full flex justify-center' >
 
-                    <div className=' flex justify-between' style={{ width: '1000px' }}>
+                    {/* style={{ width: '1000px' }} */}
+                    <div className='flex justify-between ' >
 
-                        <div className='' style={{ width: '650px' }}>
+                        {/* style={{ width: '650px' }} */}
+                        <div className='sm:px-10 ' >
 
                             {/* HORIONTAL SCROLL BAR */}
-                            <div className=' my-5'>
+                            <div className='my-5'>
 
                                 <div className='text-nowrap overflow-x-scroll scrollBar pb-3'>
 
@@ -105,7 +107,7 @@ export default function Home() {
                             </div>
 
                             {/* POST SECTION */}
-                            <div className='mt-3 mx-24'>
+                            <div className='mt-3 xl:mx-24 lg:mx-20  flex flex-col items-center '>
                                 {
                                     post.map((item) => {
                                         let extractUserProfile = users.filter((element) => {
@@ -116,21 +118,21 @@ export default function Home() {
                                         // console.log(extractUserProfile[0].id)
                                         // console.log(item.likes.includes(user.id))
                                         return (
-                                            <div className='mt-5 pb-5 border-b-2' key={item.id}>
+                                            <div className='mt-5 pb-5 border-b-2 w-fit ' key={item.id}>
                                                 <div className="w-full mb-2 flex items-center">
                                                     <img src={extractUserProfile[0]?.profileImg || 'https://www.svgrepo.com/show/527946/user-circle.svg'} alt=""
                                                         className='w-10 h-10 rounded-full' />
                                                     <p className='ms-2' >{extractUserProfile[0]?.userName}</p>
                                                     <p className='ms-auto font-extrabold'> &#x2022;&#x2022;&#x2022;</p>
                                                 </div>
-                                                <div>
+                                                <div className=''>
                                                     <img src={item.img} alt="asd"
                                                         className='h-auto' />
                                                 </div>
                                                 <div className='mt-2 flex items-center'>
                                                     <i className={`bi bi-heart-fill text-2xl mx-1 ${included ? 'text-red-500' : 'text-slate-400'}`}
                                                         id={item.id}
-                                                        onClick={() => { document.getElementById(`${item.id}`).classList.toggle('text-red-500'); likePost(item.id)}}>
+                                                        onClick={() => { document.getElementById(`${item.id}`).classList.toggle('text-red-500'); likePost(item.id) }}>
 
                                                     </i>
                                                     <i className="bi bi-chat text-2xl mx-1"
@@ -157,12 +159,33 @@ export default function Home() {
                         </div>
 
                         {/* OTHER ACTIVITIES */}
-                        <div className='' style={{ width: '300px' }}>
+                        {/* style={{ width: '300px' }} */}
+                        <div className='w-96 xl:block hidden'>
                             <p className='mt-3'>Users Suggested for You</p>
-                            <div>
-                                <div className='flex items-center mt-5' >
+                            <div className='mt-5'>
+                                <div className='flex items-center mb-3' >
                                     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt=""
-                                        className='w-12 h-12 rounded-full object-cover'
+                                        className='w-10 h-10 rounded-full object-cover'
+                                    />
+                                    <div className='ms-2'>
+                                        <p className='mb-0 text-sm font-bold'>name</p>
+                                        <p className='text-sm'>user name</p>
+                                    </div>
+                                    <p className='ms-auto text-sm text-blue-600 font-bold'>Follow</p>
+                                </div>
+                                <div className='flex items-center mb-3' >
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt=""
+                                        className='w-10 h-10 rounded-full object-cover'
+                                    />
+                                    <div className='ms-2'>
+                                        <p className='mb-0 text-sm font-bold'>name</p>
+                                        <p className='text-sm'>user name</p>
+                                    </div>
+                                    <p className='ms-auto text-sm text-blue-600 font-bold'>Follow</p>
+                                </div>
+                                <div className='flex items-center mb-3' >
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" alt=""
+                                        className='w-10 h-10 rounded-full object-cover'
                                     />
                                     <div className='ms-2'>
                                         <p className='mb-0 text-sm font-bold'>name</p>

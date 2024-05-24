@@ -24,8 +24,8 @@ export default function CreatePost() {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className=' w-full h-screen flex justify-center items-center bg-black bg-opacity-20' style={{ marginLeft: '18vw' ,background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
-                <div className='p-5 border bg-white rounded-xl shadow-2xl' style={{ height: '800px', width: '900px',backgroundColor:'lavender' }}>
+            <div className='xl:ms-96 md:ms-20 w-full sm:h-screen h-auto xl:py-20 py-16 xl:px-52 md:px-28 sm:px-16 px-5 flex justify-center items-center bg-black bg-opacity-20' style={{background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
+                <div className='h-full w-full p-10 border bg-white rounded-xl shadow-2xl' style={{ backgroundColor:'lavender' }}>
 
                     <div>
                         <p className='pb-4 text-xl font-bold border-b border-slate-400 text-center'>Create New Post</p>
@@ -41,9 +41,10 @@ export default function CreatePost() {
                     </div>
 
                     {/* CAPTION SECTION */}
-                    <div className='flex mt-10 h-4/6'>
-                        <div className='w-1/2 px-8 '>
-                            <div className=' p-5 rounded-lg h-full box-shadow border border-slate-200'>
+                    <div className='sm:flex mt-10 sm:h-4/6 h-auto'>
+
+                        <div className='sm:w-1/2 sm:px-8 '>
+                            <div className='sm:mb-0 mb-5 p-5 rounded-lg h-full box-shadow border border-slate-200'>
                                 <p className='font-bold text-slate-500'>Enter The Caption</p>
                                 <textarea className='mt-4 p-3 w-full text-wrap bg-transparent border border-slate-300 rounded-md overflow-visible'
                                     placeholder='Write Caption as long as you like.'
@@ -51,10 +52,11 @@ export default function CreatePost() {
                                     onChange={(e) => { setCaption(e.target.value) }} />
                             </div>
                         </div>
-                        <div className='w-1/2  rounded-lg box-shadow'>
+                        <div className='sm:w-1/2 rounded-lg box-shadow h-auto'>
                             <img src={img} alt="Enter correct Url"
                                 className='h-full w-full object-cover rounded-lg' />
                         </div>
+
                     </div>
 
                     {/* ADD BUTTON */}

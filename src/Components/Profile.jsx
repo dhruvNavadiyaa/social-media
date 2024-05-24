@@ -50,17 +50,18 @@ export default function Profile() {
     return (
         <div className={`flex ${modalState.isVisible && 'fixed'}`}>
             <Sidebar />
-            <div className='container px-20 ' style={{ marginLeft: '18vw' }}>
-                <div className='flex justify-center mt-10'>
+            <div className='xl:ms-96 md:ms-20 sm:px-5 '>
+
+                <div className='flex justify-center mt-10 px-5'>
 
                     {/* PROFILE PIC */}
                     <div className=''>
                         <img src={userDetail.profileImg || 'https://www.svgrepo.com/show/527946/user-circle.svg'} alt=""
-                            className='w-40 h-40 object-cover rounded-full' />
+                            className='md:w-40 sm:w-28 w-16 md:h-40 sm:h-28 h-16 object-cover rounded-full' />
                     </div>
                     {/* PERSONAL INFO */}
-                    <div className='ms-10'>
-                        <div className='flex items-center'>
+                    <div className='sm:ms-10 ms-3'>
+                        <div className='sm:flex items-center'>
                             <p className='me-10 text-xl' >{userDetail.userName}</p>
                             <button className='mx-1 bg-slate-200 rounded px-3 py-1' onClick={() => { setEditModal(true) }}>Edit Profile</button>
                             <button className='mx-1 bg-slate-200 rounded px-3 py-1'>settings</button>
@@ -79,7 +80,7 @@ export default function Profile() {
                 {/* POSTS */}
                 <div className=' mt-6'>
                     <p className='text-center'>POSTS</p>
-                    <div className='grid grid-cols-3 gap-1 px-12 mt-5   '>
+                    <div className='grid grid-cols-3 gap-1 sm:px-12 px-5 mt-5'>
                         {
                             post.map((item, index) => {
                                 let extractUserProfile = users.filter((element) => {

@@ -1,7 +1,3 @@
-.sidebar{
- width: 18vw;   
-}
-
 .slide-left{
     margin-left: -320px;
     transition: all 1s ease;
@@ -20,7 +16,12 @@
 }
 
 @media only screen and (max-width: 1280px){
-    .sidebar{
+    /* .sidebar{
         width: 7vw;
+    } */
+}
+@media only screen and (max-width: 768px){
+    .sidebar{
+        margin-top: 93vh;
     }
 }

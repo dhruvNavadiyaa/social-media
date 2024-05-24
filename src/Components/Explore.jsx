@@ -31,9 +31,9 @@ export default function Explore() {
     return (
         <div className={`flex ${modalState.isVisible && 'fixed w-full'}`}>
             <Sidebar />
-            <div className='w-full flex justify-center' style={{ marginLeft: '18vw' }}>
+            <div className='xl:ms-96 md:ms-20 sm:mx-10 sm:p-10 p-5 w-full flex justify-center'>
 
-                <div className='mt-10' style={{ width: '1000px' }}>
+                <div className='sm:mt-10'>
                     <div className='grid grid-cols-3 gap-1'>
 
                         {
