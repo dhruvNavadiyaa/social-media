@@ -12,6 +12,7 @@ export default function Messages() {
     const [openedChatUser, setOpenedChatUser] = useState()
     const [onlineUsers, setOnlineUsers] = useState([])
     const [messages, setMessages] = useState([])
+    const [allMessages, setAllMessages] = useState([])
     const [msg, setMsg] = useState("")
     const followers = useSelector(state => state.userDetail.followers)
     const userId = useSelector(state => state.userDetail.id)
@@ -41,33 +42,32 @@ export default function Messages() {
         setUsers(response.data)
         // console.log(users)
     }
+    const allmessages = async () => {
+        const response = await axios.get('http://localhost:3000/message')
+        setAllMessages(response.data)
+    }
 
-    const retrieveMessage = async () => {
+    const retrieveMessage = async (data) => {
         try {
-            const response = await axios.get('http://localhost:3000/message')
-            // console.log('All messages:', response.data)
-
-            const allMessages = response.data
             const messages = allMessages.filter((item) => {
-                return item.senderId === userId && item.recieverId === openedChatUser.id || item.senderId === openedChatUser.id && item.recieverId === userId
+                return (item.senderId === userId && item.recieverId === openedChatUser.id) ||
+                    (item.senderId === openedChatUser.id && item.recieverId === userId)
             })
-            // console.log('Filtered messages:', messages)
+            messages.sort((a, b) => a.id - b.id);
+            // for (let i = 0; i <= messages.length - 1; i++) {
 
-            // messages.sort((a, b) => a.id - b.id);
-            for (let i = 0; i <= messages.length - 1; i++) {
+            //     for (let j = i; j <= messages.length - 1; j++) {
 
-                for (let j = i; j <= messages.length - 1; j++) {
-
-                    if (messages[i].id > messages[j].id) {
-                        let temp = messages[i]
-                        messages[i] = messages[j]
-                        messages[j] = temp
-                    }
-                }
-            }
+            //         if (messages[i].id > messages[j].id) {
+            //             let temp = messages[i]
+            //             messages[i] = messages[j]
+            //             messages[j] = temp
+            //         }
+            //     }
+            // }
             // console.log('Sorted messages:', messages)
             setMessages(messages)
-        } catch(error) {
+        } catch (error) {
             console.error('Error retrieving messages:', error);
         }
     }
@@ -121,6 +121,7 @@ export default function Messages() {
     useEffect(() => {
         getAllPost()
         getAllUsers()
+        allmessages()
         connetion()
         socket?.on("receive-msg", (data) => {
             // console.log(data)
@@ -139,17 +140,17 @@ export default function Messages() {
 
             <Sidebar />
 
-            <div className='xl:ms-96 md:ms-20 w-full flex border-e'>
+            <div className='xl:ms-96 md:ms-20 w-full md:flex border-e'>
 
 
-                <div className='h-screen px-3 border-e' style={{    width: '30vw' }}>
+                <div className={`md:w-1/3 md:block ${!openedChatUser ? 'w-full' : 'hidden'} h-screen px-3 border-e`}>
                     <p className='my-10 font-mediumm text-3xl'>Messages</p>
                     {
                         users.map((item, index) => {
                             // console.log(item)
                             if (followers?.includes(item.id)) {
                                 return (
-                                    <div className='flex items-center bg-slate-100 hover:bg-slate-200 py-2 px-2 my-2 rounded-lg' key={index} onClick={() => { setOpenedChatUser(item); retrieveMessage() }}>
+                                    <div className='flex items-center bg-slate-100 hover:bg-slate-200 py-2 px-2 my-2 rounded-lg' key={index} onClick={() => { retrieveMessage(item); setOpenedChatUser(item); }}>
                                         <img src={item.profileImg || `https://www.svgrepo.com/show/527946/user-circle.svg`} alt=""
                                             className='w-12 h-12 rounded-full object-cover'
                                         />
@@ -166,11 +167,12 @@ export default function Messages() {
 
 
                 {/* SEARCHED PERSONED CHAT SECTION */}
-                <div className="flex flex-col h-screen w-full">
-                    {
-                        openedChatUser &&
-                        <>
-                            <div className='border-b '>
+                {
+                    openedChatUser &&
+                    <>
+                        <div className="md:w-2/3 w-full flex flex-col h-screen">
+
+                            <div className='border-b px-7'>
                                 <div className='flex items-center py-2 px-2 my-2' >
                                     <img src={openedChatUser?.profileImg || 'https://www.svgrepo.com/show/527946/user-circle.svg'} alt=""
                                         className='w-12 h-12 rounded-full object-cover'
@@ -179,7 +181,8 @@ export default function Messages() {
                                         <p className='mb-1 font-bold'>{openedChatUser?.name}</p>
                                         <p className='text-sm text-green-600'>Online...</p>
                                     </div>
-                                    <div className='ms-auto text-3xl me-5'>...</div>
+                                    {/* <div className='ms-auto text-3xl me-5'>...</div> */}
+                                    <img src="https://www.svgrepo.com/show/370957/back-light.svg" alt="" className='h-10 p-2 ms-auto rounded-lg bg-slate-200 border' onClick={() => { setOpenedChatUser('') }} />
                                 </div>
                             </div>
 
@@ -207,7 +210,7 @@ export default function Messages() {
 
                             </div>
 
-                            <div className="p-4 ">
+                            <div className="p-4 md:mb-0 mb-14">
                                 <form action="" id="form" className="flex" onSubmit={(e) => { e.preventDefault(); SendMessage() }}>
                                     <input type="text" placeholder="Please enter message here!"
                                         className="me-3 px-5 py-2 rounded-lg w-full bg-neutral-200 focus:outline-none"
@@ -218,9 +221,10 @@ export default function Messages() {
                                     <button className="px-5 py-2 rounded-lg bg-neutral-500 	text-neutral-300 hover:bg-neutral-600 shadow-2xl" type='submit'>Send</button>
                                 </form>
                             </div>
-                        </>
-                    }
-                </div>
+
+                        </div>
+                    </>
+                }
             </div>
 
         </div >

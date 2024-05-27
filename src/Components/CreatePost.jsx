@@ -22,9 +22,9 @@ export default function CreatePost() {
     }
 
     return (
-        <div className='flex'>
+        <div className='flex h-screen'  style={{background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
             <Sidebar />
-            <div className='xl:ms-96 md:ms-20 w-full sm:h-screen h-auto xl:py-20 py-16 xl:px-52 md:px-28 sm:px-16 px-5 flex justify-center items-center bg-black bg-opacity-20' style={{background: 'linear-gradient(45deg, rgb(253, 244, 181),rgb(206, 219, 252),rgb(251, 214, 212)'}}>
+            <div className='xl:ms-96 md:ms-20 w-full sm:h-screen h-fit xl:py-20 py-16 xl:px-52 md:px-28 sm:px-16 px-5 flex justify-center items-center'>
                 <div className='h-full w-full p-10 border bg-white rounded-xl shadow-2xl' style={{ backgroundColor:'lavender' }}>
 
                     <div>

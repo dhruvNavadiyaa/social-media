@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../css/Sidebar.css'
 import '../css/Utility.css'
 
 export default function Sidebar() {
 
+    const navigate = useNavigate()
     const [filterUsers, setFIlterUsers] = useState([])
     const [users, setUsers] = useState([])
 
@@ -46,23 +47,27 @@ export default function Sidebar() {
 
     return (
         <>
-            <div className='sidebar md:h-screen  h-16 xl:w-96 md:w-24 w-screen md:fixed fixed border-t '>
 
-                {/* <div className='h-screen'> */}
+            <div className='sidebar md:h-screen h-16 xl:w-96 md:w-24 w-screen md:fixed fixed border-t bg-white'>
 
                 <div className='md:h-full md:flex  flex rounded-lg overflow-hidden '>
 
                     {/* ALL COMPONENTS ICONS */}
                     <div className='md:h-screen h-16 md:w-20 w-full flex md:flex-col justify-evenly shadow-xl bg-white'>
-                        
+
                         <div className='h-28 md:flex hidden items-center justify-center'>
                             <i className="bi bi-instagram text-2xl font-bold rounded-lg p-2 px-3"></i>
                         </div>
                         <div className='my-1 h-12 flex items-center justify-center bg-white'>
                             <Link to='/'><i className="bi bi-house-door-fill text-2xl rounded-lg p-2 px-3 hover:bg-slate-200"></i></Link>
                         </div>
-                        <div className='my-1 h-12  flex items-center justify-center bg-white z-10' onClick={() => { slideLeft(), hidesearch() }}>
+                        <div className='my-1 h-12  md:flex hidden items-center justify-center bg-white z-10' onClick={() => { slideLeft(), hidesearch() }}>
                             <i className="bi bi-search text-2xl font-bold rounded-lg p-2 px-3 hover:bg-slate-200"></i>
+                        </div>
+                        <div className='my-1 h-12  flex md:hidden items-center justify-center bg-white z-10'>
+                            <Link to='/search'>
+                                <i className="bi bi-search text-2xl font-bold rounded-lg p-2 px-3 hover:bg-slate-200"></i>
+                            </Link>
                         </div>
                         <div className='my-1 h-12  flex items-center justify-center bg-white'>
                             <Link to='/Explore'><i className="bi bi-compass text-2xl font-bold rounded-lg p-2 px-3 hover:bg-slate-200"></i></Link>
@@ -123,7 +128,7 @@ export default function Sidebar() {
                                 {
                                     filterUsers.map((item, index) => {
                                         return (
-                                            <div className='py-1 my-1 flex items-center hover:bg-slate-100 rounded-lg' key={item.id}>
+                                            <div className='py-1 my-1 flex items-center hover:bg-slate-100 rounded-lg' key={item.id} onClick={() => { navigate('/search', { state: item.id }) }}>
                                                 <img src={item.profileImg || `https://www.svgrepo.com/show/527946/user-circle.svg`} alt=""
                                                     className='w-11 h-11 rounded-full object-cover' />
                                                 <div className='ms-2'>
@@ -139,8 +144,8 @@ export default function Sidebar() {
 
                     </div>
                 </div>
-                {/* </div> */}
-            </div>
+
+            </div >
         </>
     )
 }
