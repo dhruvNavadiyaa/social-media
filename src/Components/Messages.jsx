@@ -45,28 +45,18 @@ export default function Messages() {
     const allmessages = async () => {
         const response = await axios.get('http://localhost:3000/message')
         setAllMessages(response.data)
+        // console.log(response.data)
     }
 
     const retrieveMessage = async (data) => {
         try {
+            setMessages([])
             const messages = allMessages.filter((item) => {
-                return (item.senderId === userId && item.recieverId === openedChatUser.id) ||
-                    (item.senderId === openedChatUser.id && item.recieverId === userId)
+                return (item.senderId === userId && item.recieverId === data?.id) ||
+                    (item.senderId === data?.id && item.recieverId === userId)
             })
-            messages.sort((a, b) => a.id - b.id);
-            // for (let i = 0; i <= messages.length - 1; i++) {
-
-            //     for (let j = i; j <= messages.length - 1; j++) {
-
-            //         if (messages[i].id > messages[j].id) {
-            //             let temp = messages[i]
-            //             messages[i] = messages[j]
-            //             messages[j] = temp
-            //         }
-            //     }
-            // }
-            // console.log('Sorted messages:', messages)
-            setMessages(messages)
+            // console.log(messages)
+            setMessages(messages.sort((a, b) => a.id - b.id))
         } catch (error) {
             console.error('Error retrieving messages:', error);
         }
@@ -117,7 +107,6 @@ export default function Messages() {
         // console.log("New user joined", data)
         // console.log("online user:", onlineUsers)
     })
-    // console.log("onlineUsers",onlineUsers)
     useEffect(() => {
         getAllPost()
         getAllUsers()
@@ -150,7 +139,7 @@ export default function Messages() {
                             // console.log(item)
                             if (followers?.includes(item.id)) {
                                 return (
-                                    <div className='flex items-center bg-slate-100 hover:bg-slate-200 py-2 px-2 my-2 rounded-lg' key={index} onClick={() => { retrieveMessage(item); setOpenedChatUser(item); }}>
+                                    <div className='flex items-center bg-slate-100 hover:bg-slate-200 py-2 px-2 my-2 rounded-lg' key={index} onClick={() => { setOpenedChatUser(item); retrieveMessage(item); }}>
                                         <img src={item.profileImg || `https://www.svgrepo.com/show/527946/user-circle.svg`} alt=""
                                             className='w-12 h-12 rounded-full object-cover'
                                         />
@@ -182,14 +171,14 @@ export default function Messages() {
                                         <p className='text-sm text-green-600'>Online...</p>
                                     </div>
                                     {/* <div className='ms-auto text-3xl me-5'>...</div> */}
-                                    <img src="https://www.svgrepo.com/show/370957/back-light.svg" alt="" className='h-10 p-2 ms-auto rounded-lg bg-slate-200 border' onClick={() => { setOpenedChatUser('') }} />
+                                    <img src="https://www.svgrepo.com/show/370957/back-light.svg" alt="" className='h-10 p-2 ms-auto rounded-lg bg-slate-200 border' onClick={() => { setOpenedChatUser(null) }} />
                                 </div>
                             </div>
 
                             <div className="p-4 grow rounded-xl overflow-y-scroll vertical-scroll" id="messageContainer">
                                 {
                                     messages.map((item, index) => {
-                                        // console.log(item.recieverId,userId)
+                                        // console.log(item.recieverId,userId,openedChatUser.id)
                                         if (item.senderId === openedChatUser.id) {
                                             return (
                                                 <div className="my-1  flex items-center float-start clear-both" id="leftMessage" key={index}>

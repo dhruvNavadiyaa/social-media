@@ -13,7 +13,7 @@ export default function Sidebar() {
     const getusers = async () => {
         let response = await axios.get("http://localhost:3000/users")
         setUsers(response.data)
-        console.log(users)
+        // console.log(users)
     }
 
     const slideLeft = () => {
