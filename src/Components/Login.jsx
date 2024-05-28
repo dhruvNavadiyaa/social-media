@@ -4,6 +4,7 @@ import { setUserDetails } from '../redux/features/userSlice'
 import login from "../assets/login.jpg"
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { Tuple } from '@reduxjs/toolkit'
 
 export default function Login() {
 
@@ -19,7 +20,7 @@ export default function Login() {
     const data = (response.data)
     data.forEach(element => {
       if (element.userName === userid && element.password === password) {
-        dispatch(setUserDetails(element))
+        dispatch(setUserDetails({element,login:true}))
         localStorage.setItem("userId",element.id)
         navigate('/')
       }
@@ -50,7 +51,9 @@ export default function Login() {
             onChange={(e) => { setpassword(e.target.value) }} /><br />
 
           <div className='text-center'>
-            <button className='mt-7 mb-2 border bg-blue-600 px-4 py-2 font-bold text-white text-xl rounded w-full' onClick={handlesubmit}>Login</button><br />
+            <button className='mt-7 mb-2 border bg-blue-600 px-4 py-2 font-bold text-white text-xl rounded w-full' 
+            disabled={userid===''||password===''}
+            onClick={handlesubmit}>Login</button><br />
           </div>
           <small className='font-bold text-gray-400'>Dont Have Account? <Link to='/SignUp' className='text-blue-500 font-bold underline'>Creat One! </Link></small>
         </form>

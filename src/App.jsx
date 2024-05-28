@@ -17,20 +17,23 @@ function App() {
   // console.log(useSelector(state => state))
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  let login = useSelector(state => state.login)
 
   const refresh = async () => {
     const response = await axios.get('http://localhost:3000/users')
     const userId = localStorage.getItem('userId')
     // console.log(userId)
-    response.data.forEach(element => {
-      if (element.id == userId) {
-        dispatch(setUserDetails(element))
-        // console.log("success")
-      }
-      else {
-        // console.log("error")
-      }
-    })
+    if (userId) {
+      response.data.forEach(element => {
+        if (element.id == userId) {
+          dispatch(setUserDetails({ element, login: true }))
+          // console.log("success")
+        }
+      })
+    }else{
+      navigate('login')
+    }
+
   }
 
   useEffect(() => {
@@ -40,14 +43,19 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/Login' element={<Login />} />
-        <Route path='/SignUp' element={<SignUp />} />
-        <Route path='/Explore' element={<Explore />} />
-        <Route path='/Search' element={<Search />} />
-        <Route path='/Profile' element={<Profile />} />
-        <Route path='/CreatePost' element={<CreatePost />} />
-        <Route path='/Messages' element={<Messages />} />
+        {
+          !login ? <>
+            <Route path='/login' element={<Login />} />
+            <Route path='/SignUp' element={<SignUp />} />
+          </> : <>
+            <Route path='/' element={<Home />} />
+            <Route path='/Explore' element={<Explore />} />
+            <Route path='/Search' element={<Search />} />
+            <Route path='/Profile' element={<Profile />} />
+            <Route path='/CreatePost' element={<CreatePost />} />
+            <Route path='/Messages' element={<Messages />} />
+          </>
+        }
       </Routes>
     </>
   )

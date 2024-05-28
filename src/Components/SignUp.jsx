@@ -60,6 +60,7 @@ export default function SignUp() {
 
                     <div className='text-center'>
                         <button className='mt-5 mb-2 border rounded bg-blue-600 px-4 py-2 font-bold text-white text-xl w-full'
+                        disabled={data.name===''||data.userName===''||data.password===''}
                             onClick={handlesubmit}>SignUp</button><br />
 
                     </div>
