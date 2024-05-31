@@ -4,17 +4,18 @@ import axios, { all } from 'axios'
 import { setUserDetails } from '../redux/features/userSlice'
 import { combineSlices } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Search() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     
     const user = useSelector(state => state.userDetail)
     const [users, setUsers] = useState([])
     const [filterUsers, setFIlterUsers] = useState([])
-    const [searchedUser, setSearchedUser] = useState()
+    const [searchedUser, setSearchedUser] = useState([])
     const [post, setPost] = useState([])
     const [allFollowings, setAllFollowings] = useState([]);
     const [SearchedUserId,setSearchedUserId] = useState('')
@@ -170,6 +171,7 @@ export default function Search() {
                         {/* PERSONAL INFO */}
                         <div className='sm:ms-10 ms-3'>
                             <div className='sm:flex items-center'>
+                             
                                 <p className='me-10 text-xl' >{searchedUser?.userName}</p>
                                 {
                                     // user?.followers.includes(searchedUser.id) ? <>

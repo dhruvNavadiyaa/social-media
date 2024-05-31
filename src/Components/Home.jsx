@@ -4,9 +4,11 @@ import '../css/Utility.css'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Comment from './Shared/Comment'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
 
+    const navigate = useNavigate()
     const user = useSelector(state => state.userDetail)
     // console.log(user)
     const [post, setPost] = useState([])
@@ -122,7 +124,7 @@ export default function Home() {
                                                 <div className="w-full mb-2 flex items-center">
                                                     <img src={extractUserProfile[0]?.profileImg || 'https://www.svgrepo.com/show/527946/user-circle.svg'} alt=""
                                                         className='w-10 h-10 rounded-full' />
-                                                    <p className='ms-2' >{extractUserProfile[0]?.userName}</p>
+                                                    <p className='ms-2' onClick={() => { navigate('/search', { state: item.userId })}}>{extractUserProfile[0]?.userName}</p>
                                                     <p className='ms-auto font-extrabold'> &#x2022;&#x2022;&#x2022;</p>
                                                 </div>
                                                 <div className=''>

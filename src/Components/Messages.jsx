@@ -3,10 +3,12 @@ import Sidebar from './Sidebar'
 import axios from 'axios'
 import { io } from 'socket.io-client'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 let socket
 export default function Messages() {
 
+    const location = useLocation()
     const [post, setPost] = useState([])
     const [users, setUsers] = useState([])
     const [openedChatUser, setOpenedChatUser] = useState()
@@ -136,7 +138,7 @@ export default function Messages() {
                     <p className='my-10 font-mediumm text-3xl'>Messages</p>
                     {
                         users.map((item, index) => {
-                            // console.log(item)
+                            console.log(item)
                             if (followers?.includes(item.id)) {
                                 return (
                                     <div className='flex items-center bg-slate-100 hover:bg-slate-200 py-2 px-2 my-2 rounded-lg' key={index} onClick={() => { setOpenedChatUser(item); retrieveMessage(item); }}>
